@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: edid
+      POSTGRES_USER: edid
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U edid -d edid"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # No published port: only the API reaches the database.
+    expose:
+      - "5432"
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      EDID_ENVIRONMENT: ${EDID_ENVIRONMENT:-production}
+      EDID_SECRET_KEY: ${EDID_SECRET_KEY:?generate with make secret}
+      EDID_DATABASE_URL: postgresql+asyncpg://edid:${POSTGRES_PASSWORD}@db:5432/edid
+      EDID_CORS_ORIGINS: ${EDID_CORS_ORIGINS:-https://edid.example.com}
+      EDID_TRUSTED_HOSTS: ${EDID_TRUSTED_HOSTS:-edid.example.com}
+      EDID_FORCE_HTTPS: ${EDID_FORCE_HTTPS:-true}
+      EDID_BOOTSTRAP_ADMIN_EMAIL: ${EDID_BOOTSTRAP_ADMIN_EMAIL:-}
+      EDID_BOOTSTRAP_ADMIN_PASSWORD: ${EDID_BOOTSTRAP_ADMIN_PASSWORD:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8000:8000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  db-data:
