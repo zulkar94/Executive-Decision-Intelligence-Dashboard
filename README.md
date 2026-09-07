@@ -1,3 +1,5 @@
+[![CI](https://github.com/zulkar94/Executive-Decision-Intelligence-Dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/zulkar94/Executive-Decision-Intelligence-Dashboard/actions/workflows/ci.yml)
+
 # Executive Decision Intelligence
 
 A decision-support platform for the choices that are too expensive to make on instinct.

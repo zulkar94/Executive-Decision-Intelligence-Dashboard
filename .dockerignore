@@ -1,0 +1,16 @@
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.ruff_cache/
+**/.mypy_cache/
+.git/
+.github/
+.devcontainer/
+docs/
+*.md
+!README.md
+.env
+*.db
+*.sqlite3
+htmlcov/
+coverage.xml

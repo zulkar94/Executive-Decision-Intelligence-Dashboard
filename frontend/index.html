@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Executive Decision Intelligence</title>
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<div id="app" class="shell" hidden>
+  <aside class="rail">
+    <div class="mark">
+      <span class="mark-glyph">EDI</span>
+      <span class="mark-word">Decision Intelligence</span>
+    </div>
+    <nav id="nav">
+      <button class="nav-item" data-view="summary" type="button">Portfolio</button>
+      <button class="nav-item" data-view="decisions" type="button">Decisions</button>
+      <button class="nav-item" data-view="kpis" type="button">Indicators</button>
+      <button class="nav-item" data-view="audit" type="button" id="nav-audit" hidden>Audit</button>
+    </nav>
+    <div class="rail-foot">
+      <p id="who" class="who"></p>
+      <button id="signout" class="link" type="button">Sign out</button>
+    </div>
+  </aside>
+  <main id="main" class="main"></main>
+</div>
+
+<section id="gate" class="gate">
+  <div class="gate-copy">
+    <h1>Decisions, weighed before they are made.</h1>
+    <p>Rank options against weighted criteria, test how fragile the winner is, and
+       simulate the outcome under uncertainty.</p>
+  </div>
+  <div class="gate-card">
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" data-mode="login" type="button" role="tab">Sign in</button>
+      <button class="tab" data-mode="register" type="button" role="tab">Create account</button>
+    </div>
+    <label for="email">Work email</label>
+    <input id="email" type="email" autocomplete="username" spellcheck="false">
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password">
+    <p class="hint" id="gate-hint">Twelve characters or more, mixing three character types.</p>
+    <button id="gate-submit" class="primary" type="button">Sign in</button>
+    <p id="gate-error" class="error" role="alert"></p>
+  </div>
+</section>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="/assets/app.js" type="module"></script>
+</body>
+</html>
