@@ -53,12 +53,12 @@ def forecast(
         raise AnalyticsError("Horizon must be positive")
 
     best = (float("inf"), 0.3, 0.1)
-    for alpha in np.linspace(0.05, 0.95, 19):
-        for beta in np.linspace(0.02, 0.6, 15):
-            fitted, _, _ = _holt(series, float(alpha), float(beta))
+    for a in np.linspace(0.05, 0.95, 19):
+        for b in np.linspace(0.02, 0.6, 15):
+            fitted, _, _ = _holt(series, float(a), float(b))
             sse = float(((series[1:] - fitted[1:]) ** 2).sum())
             if sse < best[0]:
-                best = (sse, float(alpha), float(beta))
+                best = (sse, float(a), float(b))
     _, alpha, beta = best
     fitted, level, trend = _holt(series, alpha, beta)
 
