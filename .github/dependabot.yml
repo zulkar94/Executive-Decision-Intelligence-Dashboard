@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: pip
     directory: /backend
     schedule:
-      interval: weekly
+      interval: monthly
     open-pull-requests-limit: 5
     groups:
       python-minor:
@@ -11,8 +11,15 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
   - package-ecosystem: docker
     directory: /backend
     schedule:
-      interval: weekly
+      interval: monthly
+    ignore:
+      # Stay on the Python minor the CI matrix tests; bump deliberately.
+      - dependency-name: python
+        update-types: ["version-update:semver-minor"]
